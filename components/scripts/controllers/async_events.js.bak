@@ -1,0 +1,44 @@
+
+var ref = new Firebase('https://timeoff-passaicped.firebaseio.com/');
+var json;
+ref.child('users').on("value",
+function(snapshot) {
+	var requestslist = [];
+	var userslist = snapshot.val();
+	var j = 0;
+	
+	for(var user in userslist) {
+		if(userslist.hasOwnProperty(user)) {
+			if(userslist[user].hasOwnProperty("requests")) {
+				for(var request in userslist[user].requests) {
+					var requestInfo = userslist[user].requests[request];
+					requestInfo.firstName = userslist[user].firstName;
+					requestInfo.lastName = userslist[user].lastName;
+					
+					var requestObj = {
+						
+						"start": requestInfo.from,
+						"end": requestInfo.until,
+						"id": j,
+						"resource": requestInfo.firstName + " " + requestInfo.lastName,
+						"text": requestInfo.reason,
+						"type": 'disabled',
+						"numberDays": requestInfo.numberDays,
+						"numberWeeks": requestInfo.numberWeeks,
+						"len": requestInfo.len,
+						"notes": requestInfo.notes,
+						"status": requestInfo.status,
+						"requestId": requestInfo.requestId,
+						"userId": requestInfo.userId
+					}
+					
+					requestslist.push(requestObj);
+					j++;
+				}
+			}
+		}
+	}
+	userslist = null;
+	json = JSON.stringify(requestslist);
+	return json;
+});

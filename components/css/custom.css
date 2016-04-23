@@ -1,0 +1,525 @@
+
+/************* General Settings **************/
+@media (min-width: 768px) {
+  .navbar {
+    border-radius: 0;
+  }
+}
+
+.navbar-default {
+    border: 0;
+}
+
+.close {
+    opacity: 1!important;
+}
+
+/*.navbar-default .navbar-nav > .active > a {
+    background-color: #fff;
+    color: #333;
+}*/
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+    background-color: #fff;
+    color: #333;
+}
+
+.inline {
+    display:inline !important;
+}
+
+.badge {
+    background-color:#ee0535 !important;
+    color:white !important;
+    margin-top:-3px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.text-info {
+    color: #333;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+    background-color: #1e1e1e;
+}
+
+.font-large {
+    font-size:1.17em
+}
+
+.inputPasswordFix {
+    min-width:300px;
+}
+
+.fixed-300 {
+    width: 300px;
+}
+
+.cal-clear-date-icon {
+    z-index: 10;
+    position: absolute;
+    top: 12px;
+    right: 26px;
+    cursor: pointer;
+}
+
+.btn.btn-danger {
+    background-color: #eb063a
+}
+
+.btn.btn-success {
+    background-color: #4bbf25
+}
+
+.panel-default {
+    border-color: #b1b1b1;
+}
+
+.panel-default > .panel-heading {
+    background-color: #eaeaea;
+    border-color: #b1b1b1;
+}
+
+/************** DATEPICKER ********************/
+.uib-datepicker table, th, tr, td {
+    border: none;
+}
+
+td .btn-sm.active > span{
+    color:white;
+}
+    
+td .btn-default.btn-sm.active {
+    background-color:#f5f5f5;
+}
+
+td .btn-default.btn-sm.active > span {
+    color: #333;
+}
+
+td .btn-default.btn-info.btn-sm.active {
+    background-color:#2381e7;
+}
+td .btn-default.btn-info.btn-sm.active > span {
+    color:#fff;
+}
+
+td .btn-sm[disabled] {
+    background-color: #ededed;
+    opacity: 0.6;
+}
+
+.input-group-addon {
+    background-color:#fff;
+    border:0;
+    position:absolute;
+    right:14px;
+    top:2px;
+    z-index:10;
+    color: #444;
+}
+
+
+/******************** LOGIN PAGE *****************/
+#login.container.presentation {
+    background: #dfe4e8 url('../img/bg/00.jpg') top center repeat-x;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0px;
+}
+
+.loginBox {
+    transform: translateY(20%);
+    height: 295px;
+}
+
+.loginBox form a {
+    cursor: pointer;
+}
+
+.loginBox .well-lg {
+    padding-top:0;
+}
+
+.loginBox form legend h2 span {
+    font-size:0.8em;
+}
+
+.innerFooter {
+    background-color: transparent;
+    text-align: center;
+    position: relative;
+    margin-top: -10px;
+    min-height: 65px;
+    color: white;
+}
+
+.loginFooter {
+    background-color: transparent;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    color: #f2f2f0;
+    text-align: center;
+    /*background: -webkit-linear-gradient(-90deg, rgba(255,255,255,0) 0, rgba(0,0,0,1) 100%);
+    background: -moz-linear-gradient(180deg, rgba(255,255,255,0) 0, rgba(0,0,0,1) 100%);
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0, rgba(0,0,0,1) 100%);
+    background-position: 50% 50%;
+    -webkit-background-origin: padding-box;
+    background-origin: padding-box;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    -webkit-background-size: auto auto;
+    background-size: auto auto;
+    display: table-cell;*/
+}
+
+@media only screen and (max-width: 480px) {
+    .loginBox {
+        transform: translateY(10%);
+    }
+    .loginFooter {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 481px) {
+    .innerFooter {
+        display: none;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width:991px) {
+    .loginBox form {
+        margin-left: 100px;
+        margin-right: 100px;
+    }   
+}
+
+.loginFooter a, .innerFooter a{
+    color: #f2f2f0;
+    text-decoration: underline;
+}
+
+
+/* 
+  Allow angular.js to be loaded in body, hiding cloaked elements until 
+  templates compile.  The !important is important given that there may be 
+  other selectors that are more specific or come later and might alter display.  
+ */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
+
+
+/****************** REQUESTS *****************/
+#requestForm {
+    margin-top:-20px;
+    width: 100%;
+}
+
+#requestForm label {
+    margin-top:20px;
+}
+
+#requestForm select,
+#requestForm pre {
+    width: 265px;
+}
+
+#requestForm textarea {
+    height: 132px;
+    width: 265px;
+}
+
+#requestForm .well {
+    background-color: #e7e7e7;
+    margin-bottom: -12px;
+    margin-top: -12px;
+    width: 265px;
+}
+
+#requestForm .alert {
+    margin-top: 10px;
+    margin-bottom: -10px;
+}
+
+@media screen and (min-width: 481px) {
+    #requestFormContainer {
+        border: 1px solid #b1b1b1;
+        padding: 25px 4px;
+        background-color: #fafafa;
+    }
+}
+    
+@media screen and (max-width: 480px) {
+    #requestForm {
+        margin-left: -25px;
+    }
+    #requestFormContainer {
+        margin-top: 22px;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width: 991px) {
+    #requestForm {
+        margin-left: -10px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    #requestFormContainer {
+        margin-bottom: 25px;
+    }
+    #requestFormContainer {
+        min-height:190px;
+    }
+}
+    
+
+
+/****************** NOTIFICATIONS *****************/
+#requestViewNotifications {
+    border: 1px solid #b1b1b1;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: none;
+    border-bottom-width: 0;
+    background-color: #fefefe;
+}
+
+#requestViewNotifications h4 {
+    line-height: 99px;
+    margin-left: 20px;
+    color: #444;
+}
+
+#notificationsContainer {
+    height: 120px;
+}
+
+.newRequest {
+    border: 0;
+    float: left;
+    height: 111px;
+    padding: 5px;
+    width: 305px;
+    z-index: 10;
+    margin-top: 4px;
+    margin-left: 5px;
+}
+
+.newRequest table {
+    border: 2px dashed #7cb3f0;
+	background: url('../img/bg/bar_pending_lightblue.png') repeat;
+    /*border: 1px dashed #6fa8e7;
+    background-color: #d7e8fb;*/
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.newRequest td {
+    padding: 8px;
+}
+
+.newRequest small {
+    font-size: 1.38rem;
+}
+
+@media screen and (min-width: 481px) {
+    #requestViewNotifications {
+        margin-left: 12px;
+        margin-right: 12px;
+    }    
+}
+
+
+
+/****************** SCHEDULER *****************/
+#dp-container {
+    border-bottom: 2px solid #b1b1b1;
+    margin-bottom: 20px;
+}
+
+/* Legend */
+#schedulerLegend {
+    border:1px solid #b1b1b1;
+    padding: 10px;
+    margin-bottom:-1px;
+    list-style-type: none;
+    background-color: #eaeaea;
+}
+
+#schedulerLegend li img {
+    margin: -3px 2px 0 11px;
+}
+
+#schedulerLegend li:last-child {
+    cursor: pointer;
+}
+
+#welcomeInfo ul {
+    list-style-type: none;
+    margin-left: -20px;
+}
+
+@media screen and (max-width: 480px) {
+    #schedulerLegend li {
+        display: block;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    #welcomeInfo ul li {
+        display: inline-block;    
+    }
+    
+    #schedulerLegend li:not(:last-child) {
+        float: right;
+    }
+    
+    #schedulerLegend li {
+        display: inline-block;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    #welcomeInfo ul li:nth-child(2) {
+        display: none;
+    }
+    
+    #schedulerLegend li:not(:first-child) {
+        margin-top:10px;
+    }
+}
+
+
+
+/******************** REQUEST VIEW SIDE ACTION PANEL **************************/
+#requestViewDetails input, #requestViewDetails textarea {
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 0 0;
+    padding: 0 4px;
+    margin-top:7px;
+}
+
+#requestViewDetails input {
+    height:30px;
+}
+
+
+
+/******************** USERSLIST **************************/
+#userListTable table tbody tr td strong {
+    min-width:200px !important;
+}
+
+#userListTable ul {
+    margin-top: 40px;
+    list-style: none inside;
+    background-color: #efefef;
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-left-width: 0;
+    border-right-width: 0;
+}
+
+.disabledUser{
+    text-decoration: line-through;
+    background: url('../img/bg/tableban.png') repeat;
+}
+
+@media screen and (max-width:767px) {    
+    #userListTable ul {
+        margin-bottom: 7px;   
+    }
+    
+    #userListTable table {
+        margin-left: -6px;
+    }
+    
+    #userListTable table tbody tr td {
+        display: block;
+        text-align: left;
+    }
+    
+    #userListTable table tbody tr td:last-child {
+        margin-bottom: 25px;
+    }
+    
+    #userListTable table tbody tr td a.btn {
+        float: left;
+        padding: 12px;
+        margin-left: 7px;
+        margin-bottom: 22px;
+    }
+    
+    #userListTable table tbody tr td a.btn:last-child {
+        float: right;
+    }
+    
+    #userListTable table thead tr th {
+        display: none;
+    }
+}
+
+@media screen and (min-width:768px) {
+    #userListTable table tbody tr td strong {
+        display: none;
+    }
+    
+    #userListTable li {
+        display: inline-block;
+        margin-right: 20px;
+    }
+    
+    #userListTable table tbody td:last-child {
+        width: 210px;
+    }
+}
+
+
+
+/******************** NOSCRIPT **************************/
+.doughnut-legend li {
+    font-size: 15px !important;
+}
+
+
+
+/******************** NOSCRIPT **************************/
+.noscript {
+	background-color: #222;
+	color: #fff;
+	text-align: center;
+	padding: 4px;
+	font-weight: bold;
+	font-size: 1.2em;
+}
