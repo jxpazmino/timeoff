@@ -1,0 +1,81 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<legend><span class="glyphicon glyphicon-group" aria-hidden="true"></span> &nbsp;Users</legend>
+			<div class="form-group col-sm-3">
+				<label for="searchUser" class="control-label">Order by:</label>
+				<select class="form-control" ng-model="filter.order">
+					<option value="firstName">First Name</option>
+					<option value="lastName">Last Name</option>
+					<option value="email">Email</option>
+					<option value="status">Account status</option>
+					<option value="-pendingDays">Pending review days</option>
+					<option value="-approvedDays">Approved Days</option>
+					<option value="-eligibleDays">Eligible Days</option>
+					<option value="-date">Date Created</option>
+				</select>
+			</div>
+			<div class="form-group col-sm-5 col-sm-offset-1">
+				<label for="searchUser" class="control-label">Search:</label>
+				<input type="text" class="form-control" id="searchUser" placeholder="Name, email, status, user type" ng-model="searchBy">
+			</div>
+			<div class="form-group col-sm-2 col-sm-offset-1">
+				<br>
+				<a ng-href="#/registration" class="btn btn-primary" id="adduser" name="adduser" class="form-control"><span class="glyphicon glyphicon-user_add"></span> &nbsp;New User</a>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12" id="userListTable">
+			<ul>
+				<li><span class="glyphicon glyphicon-filter"></span> <strong>Show/hide columns: </strong></li> 
+				<li><input type="checkbox" ng-model="filter.email"> Email </li> 
+				<li><input type="checkbox" ng-model="filter.pendingDays"> Pending review days </li> 
+				<li><input type="checkbox" ng-model="filter.approvedDays"> Approved days </li> 
+				<li><input type="checkbox" ng-model="filter.eligibleDays"> Eligible days </li> 
+				<li><input type="checkbox" ng-model="filter.type"> User type </li> 
+				<li><input type="checkbox" ng-model="filter.status"> Account status </li> 
+				<li><input type="checkbox" ng-model="filter.created"> Date created </li>
+			</ul>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>First name</th>
+						<th>Last name</th>
+						<th ng-show="filter.email">Email</th>
+						<th ng-show="filter.pendingDays" class="text-center">Pending<br>days</th>
+						<th ng-show="filter.approvedDays" class="text-center">Approved<br>days</th>
+						<th ng-show="filter.eligibleDays" class="text-center">Eligible<br>days</th>
+						<th ng-show="filter.type">Type</th>
+						<th ng-show="filter.status">Account<br>status</th>
+						<th ng-show="filter.created">Date<br>created</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-ng-repeat="user in userslist | filter: { $: searchBy } | orderBy: filter.order" ng-class="{'disabledUser' : user.status!=='enabled'}">
+						<!--ng-if="user.email!=='jonathan@itglobalprotech.com'"-->
+						<td>
+							<strong>First Name: </strong>{{ user.firstName }}
+						</td>
+						<td><strong>Last Name: </strong>{{ user.lastName }}</td>
+						<td ng-show="filter.email"><strong>Email: </strong>{{ user.email }}</td>
+						<td ng-show="filter.pendingDays"class="text-center"><strong>Pending Days: </strong>{{ (user.pendingDays==='') ? '0' : user.pendingDays }}</td>
+						<td ng-show="filter.approvedDays"class="text-center"><strong>Approved Days: </strong>{{ (user.approvedDays==='') ? 'N/A' : user.approvedDays }}</td>
+						<td ng-show="filter.eligibleDays" class="text-center"><strong>Eligible Days: </strong>{{ (user.eligibleDays==='') ? 'N/A' : user.eligibleDays }}</td>
+						<td ng-show="filter.type"><strong>User Type: </strong>{{ user.userType | capitalize }}</td>
+						<td ng-show="filter.status"><strong>Account status: </strong>{{ user.status | capitalize }}</td>
+						<td ng-show="filter.created"><strong>Created: </strong>{{ user.date | date:'MMM dd, yy' }}</td>
+						<td>
+							<a class="btn btn-xs btn-default" ng-href="#/registration/{{user.regUser}}"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+							<a class="btn btn-xs" ng-class="user.blockCalendar===true ? 'btn-info' : 'btn-warning'" ng-click="unblockCalendar(user)" ng-model="currentUserBlockCalendar"></span> {{(user.blockCalendar===true) ? 'Unblock' : 'Block'}} days</a>
+							<!--<span class="glyphicon" ng-class="user.blockCalendar===true ? 'glyphicon-lock' : 'glyphicon-unlock'">-->
+							<!--<a class="btn btn-xs" ng-class="user.status==='enabled' ? 'btn-success' : 'btn-danger'" ng-hide="currentUser.email===user.email"
+							ng-click="changeUserStatus(user)" ng-model="currentUserStatus"><span class="glyphicon" ng-class="user.status==='enabled' ? 'glyphicon-ok' : 'glyphicon-ban'"></span> {{(user.status==='enabled') ? 'Enabled' : 'Disabled'}}</a>-->
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

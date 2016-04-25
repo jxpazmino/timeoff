@@ -1,0 +1,50 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2" id="content">
+			<form name="locationForm" class="form-horizontal" ng-submit="addLocation()" novalidate>
+				<fieldset>
+					<legend><span class="glyphicon glyphicon-building" aria-hidden="true"></span> Add New Location</legend>
+					<small>Please enter a reference name for your new office, maximum {{characters}} characters:</small>
+					<hr>
+					<div class="form-group" ng-class="errorSuccessClass(locationForm.locationName)">
+						<label for="inputLocationName" class="col-lg-2 control-label">Location Name</label>
+						<div class="col-lg-5">
+							<input type="text" class="form-control capitalize" id="locationName" name="locationName" placeholder="Example: Main Street Office" ng-model="location.name" ng-required="true">
+						</div>
+					</div>
+					<div class="col-lg-4 col-lg-offset-2" ng-class="{'alert alert-danger' : location.name.length > characters}" ng-show="location.name.length > characters" ng-cloak>
+							Must be {{characters}} characters or less!
+					</div>
+					<div class="form-group">
+						<div class="col-lg-10 col-lg-offset-2">
+							<button type="submit" class="btn btn-primary" ng-disabled="location.name.length > characters ||locationForm.$invalid">Add Location</button>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+	<hr>
+	<!--list of locations-->
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2" id="locationListTable">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th style="width:110px"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-ng-repeat="location in locationslist">
+						<td>{{ location.locationName | capitalize }}</td>
+						<td>
+							<a class="btn btn-warning btn-xs" ng-click="editLocation(location)" disabled>Edit</a>
+							<a class="btn btn-danger btn-xs" ng-click="deleteLocation(location)">Delete</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

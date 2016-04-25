@@ -1,6 +1,6 @@
 var timeOff = angular.module('timeOff',
 	['ngRoute', 'firebase', 'ui.bootstrap', 'chart.js'])
-	.constant('FIREBASE_URL', 'https://timeoff-demo.firebaseio.com/');// path to our firebase db
+	.constant('FIREBASE_URL', // path to our firebase db //);
 
 timeOff.run(['$rootScope', '$location', function ($rootScope, $location) {
 	$rootScope.$on('$routeChangeError', function (event, next, prev, error) {

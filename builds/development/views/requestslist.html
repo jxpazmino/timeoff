@@ -1,0 +1,52 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+		<legend><span class="glyphicon glyphicon-history" aria-hidden="true"></span> Request History</legend>
+			<div class="form-group col-sm-3">
+				<label for="searchUser" class="control-label">Order by:</label>
+				<select class="form-control" ng-model="filter.order">
+					<option value="-date">Date of request</option>
+					<option value="-status">Status (pending first)</option>
+					<option value="status">Status (approved first)</option>
+				</select>
+			</div>
+			<div class="form-group col-sm-5 col-sm-offset-1">
+				<label for="searchUser" class="control-label">Search:</label>
+				<input type="text" class="form-control" id="searchUser" placeholder="Search by name, date, status or reason" ng-model="searchBy">
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12" id="userListTable">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Date of request</th>
+						<th>Name</th>
+						<th>From</th>
+						<th>Until</th>
+						<th>#Days</th>
+						<th>Reason</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-ng-repeat="request in requestslist | filter: { $: searchBy } | orderBy: filter.order">
+						<td><strong>Date of request: </strong>{{ request.date | date:'MMM dd, yy hh:mm:ss a' }}</td>
+						<td ><strong>Name: </strong>{{ request.lastName }}, {{ request.firstName }}</td>
+						<td><strong>From: </strong>{{ request.from }}</td>
+						<td><strong>Until: </strong>{{ request.until }}</td>
+						<td class="text-center"><strong>Number Days: </strong>{{ (request.numberDays==='') ? '0' : request.numberDays }}</td>
+						<td><strong>Reason: </strong>{{ request.reason }}</td>
+						<td><strong>Status: </strong>{{ request.status }}</td>
+						<!--<td>
+							<a class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil" ng-href="#/registration/{{user.regUser}}"></span> Edit</a>
+							<a class="btn btn-xs" ng-class="user.status==='enabled' ? 'btn-danger' : 'btn-info'" ng-hide="currentUser.email===user.email"
+							ng-click="changeUserStatus(user)" ng-model="currentUserStatus"><span class="glyphicon" ng-class="user.status==='enabled' ? 'glyphicon-ban' : 'glyphicon-ok'"></span> {{(user.status==='enabled') ? 'Disable' : 'Enable'}}</a>
+						</td>-->
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

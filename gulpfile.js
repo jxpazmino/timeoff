@@ -13,43 +13,22 @@ var gulp 		 = require('gulp'),
     outputDir;
     
 env = process.env.NODE_ENV || 'development';
-env = 'production';
+//env = 'production';
 if(env==='development') {
 	outputDir = 'builds/development/';
 } else {
 	outputDir = 'builds/production/';
 }
     
-var jsSources  = ['components/scripts/app.js',
-				'components/scripts/ready.js'],
+var jsSources  = 'components/scripts/**/*.js',
     cssSources = 'components/css/*.css';
 
-gulp.task('jspack', function() {
-	return gulp.src('components/scripts/*/*.js')
+gulp.task('js', function() {
+	return gulp.src(jsSources)
 	.pipe(concat('bundle.js'))
 	.pipe(uglify())
 	.pipe(gulp.dest(outputDir + 'js'));
-	// .pipe(gulp.dest(outputDir + 'js'));
-	//generate bundle of controllers, services and plugin
-	//for some reason app.js doesnt uglify properly, so concatenate afterwards
 });
-
-gulp.task('jsapp', function() {
-	return gulp.src('components/scripts/app.js.min')
-	.pipe(uglify())
-	.pipe(gulp.dest(outputDir + 'js'));
-});
-
-// gulp.task('js', ['jsconcat'], function() {
-// 	return browserify('components/ready/packaged.js')
-//     .bundle()
-//     .pipe(source('bundle.js'))
-//     .pipe(buffer())
-//     // return gulp.src(jsSources)
-//     // .pipe(concat('bundle.js'))
-// 	.pipe(gulpif(env === 'production', uglify()))
-//     .pipe(gulp.dest(outputDir + 'js'));
-// });
 
 gulp.task('css', function() {
 	return gulp.src(cssSources)
@@ -73,5 +52,5 @@ gulp.task('views', function() {
 	.pipe(gulpif(env === 'production', gulp.dest(outputDir + 'views')));
 });
 
-gulp.task('default', ['jspack', 'css', 'html']);
+gulp.task('default', ['js', 'css', 'html']);
     

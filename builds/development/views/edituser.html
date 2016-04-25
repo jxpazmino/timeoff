@@ -1,0 +1,91 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-2" id="content">
+			<div class="alert alert-dismissible alert-danger" ng-if="message">
+				<button type="button" class="close"></button>
+				<strong>{{message}}</strong>
+			</div>
+			<form name="registrationForm" id="registrationForm" class="form-horizontal" ng-class="{'has-error':registrationForm.$invalid && registrationForm.$submitted}" ng-submit="save()" novalidate >
+				<fieldset>
+					<legend><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Edit User</legend>
+					All fields are required
+					<br>
+					<br>
+					<div class="form-group" ng-class="errorSuccessClass(registrationForm.userType)">
+						<label class="col-sm-3 control-label">Account status</label>
+						<div class="col-sm-9">
+							<select class="form-control" name="userStatus" id="userStatus" ng-model="user.status" ng-required="true" ng-disabled="currentUser.email===user.email">
+								<option value="" disabled selected>Choose one...</option>
+								<option value="enabled">Enabled</option>
+								<option value="disabled">Disabled</option>
+							</select>
+						</div>
+					</div>					
+					<div class="form-group" ng-class="errorSuccessClass(registrationForm.userType)">
+						<label class="col-sm-3 control-label">User type</label>
+						<div class="col-sm-9">
+							<select class="form-control" name="userType" id="userType" ng-model="user.userType" ng-required="true" ng-disabled="currentUser.email===user.email">
+								<option value="" disabled selected>Choose one...</option>
+								<option value="doctor">Doctor</option>
+								<option value="admin">Admin / Manager</option>
+							</select>
+						</div>
+					</div>					
+					<div class="form-group" ng-class="errorSuccessClass(registrationForm.firstName)">
+						<label for="inputFirstName" class="col-sm-3 control-label">Fisrt Name</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control capitalize" id="firstName" name="firstName" placeholder="First Name" ng-model="user.firstName"
+							ng-required="true">
+						</div>
+					</div>
+					<div class="form-group" ng-class="errorSuccessClass(registrationForm.lastName)">
+						<label for="inputLastName" class="col-sm-3 control-label">Last Name</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control capitalize" id="lastName" name="lastName" placeholder="Last Name" ng-model="user.lastName" ng-required="true">
+						</div>
+					</div>
+					<div class="form-group" ng-class="errorSuccessClass(registrationForm.email)">
+						<label for="inputEmail" class="col-sm-3 control-label">Email</label>
+						<div class="col-sm-9">
+							<input type="email" class="form-control lowercase" id="email" name="email" placeholder="Email" ng-model="user.email" ng-required="true" readonly>
+						</div>
+					</div>
+					<div class="form-group" ng-class="errorSuccessClass(registrationForm.radios) && errorSuccessClass(registrationForm.eligibleDays)">
+						<label for="eligibleDays" class="col-sm-3 control-label">Eligible time</label>
+						<div class="col-sm-4" ng-class="errorSuccessClass(registrationForm.eligibleDays)">
+							<input type="number" class="form-control" id="eligibleDays" name="eligibleDays" placeholder="(Numbers only)" ng-model="user.eligibleDays" ng-required="true" ng-minlength="1" ng-maxlength="3">
+						</div>
+						<div class="col-sm-5">
+							<div class="radio">
+								<ng-form name="radios" novalidate>
+								<label for="days">
+									<input type="radio" name="timeType" id="timeTypeDays" value="days" ng-model="user.timeType" ng-required="true"> Days 
+								</label>
+								&nbsp;
+								<label for="weeks">
+									<input type="radio" name="timeType" id="timeTypeWeeks" value="weeks" ng-model="user.timeType"> Weeks
+								</label>
+								</ng-form>
+							</div>
+						</div>
+						<!--<div class="col-sm-5" ng-class="errorSuccessClass(registrationForm.timeType)">
+							<select class="form-control" name="timeType" id="timeType" ng-model="user.timeType" ng-required="true">
+								<option value="" disabled selected>Select type...</option>
+								<option value="days">Days</option>
+								<option value="weeks">Weeks</option>
+							</select>
+						</div>-->
+					</div>
+					<br>
+					<div class="form-group">
+						<div class="col-sm-9 col-sm-offset-3">
+							<!--<button type="reset" class="btn btn-default">Reset</button>-->
+							<a ng-href="#/userslist" class="btn btn-default" class="form-control">Cancel</a>
+							<button type="submit" class="btn btn-primary" id="editUserSubmitButton">Save</button>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>

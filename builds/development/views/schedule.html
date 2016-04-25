@@ -1,0 +1,127 @@
+<div ng-show="currentUser" ng-cloak id="welcomeInfo">
+	<ul>
+		<li>
+			You are signed in as <strong>{{ currentUser.firstName }} {{ currentUser.lastName }}</strong>
+		</li>
+		<li>&nbsp;|&nbsp;</li>
+		<li>
+			Today is <strong>{{ currentUser.lastLoginDate | date:'EEEE, MMMM dd, yyyy' }}</strong>	
+		</li>
+	</ul>
+	<h3 ng-show="currentUser.status!=='enabled'"><strong>Your account has been disabled</strong></h3>
+</div>
+<hr>
+<!--Scheduler View-->
+<div ng-class="{
+	'col-md-9': currentUser.userType==='admin',
+	'col-md-12': currentUser.userType!=='admin'
+	}" ng-show="currentUser.status==='enabled'">
+	<div class="row">
+		<div class="col-sm-12">
+			<ul id="schedulerLegend">
+				<li><img src="../img/legend/green.gif"> Approved</li>
+				<li><img src="../img/legend/red.gif"> Declined</li>
+				<li><img src="../img/legend/blue.gif"> Pending</li>
+				<li> <span class="badge" ng-if="pendingApprovalRequests > 0" ng-hide="currentUser.userType!=='admin'">{{pendingApprovalRequests}}</span> <strong ng-hide="currentUser.userType!=='admin'">Notifications</strong> <span class="caret" ng-hide="currentUser.userType!=='admin'"></span>
+				</li>
+			</ul>
+			<div id="requestViewNotifications" ng-controller="requestslistController">
+				<h4 ng-show="pendingApprovalRequests <= 0"><strong>(No new requests to display)</strong></h4>
+				<div id="notificationsContainer" ng-show="pendingApprovalRequests > 0">
+					<div class="newRequest" ng-show="request.status==='Pending'" ng-click="processNotificationRequest(request)" ng-repeat="request in requestslist | orderBy: 'date'" ng-attr-id="{{'request' + request.requestId}}">
+						<table>
+							<tr>
+								<td style="width:49%">
+									<strong>{{request.firstName}} {{request.lastName}}</strong>
+								</td>
+								<td style="width:40%">From: {{request.from | date: 'MMM dd'}}<br>Until: {{request.until | date: 'MMM dd'}}</td>
+								<td>#Days: {{request.numberDays}}</td>
+							</tr>
+							<tr>
+								<td colspan="3"><small><em>Requested on: {{request.date | date: 'MMM dd, yyyy'}} at {{request.date | date: 'hh:mm:ss a'}}</em></small></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div id="dp-container">
+				<div id="dp"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--Side Form-->
+<div class="col-md-3" id="requestViewDetails" ng-show="(currentUser.status==='enabled') && (currentUser.userType==='admin')">
+	<div class="panel panel-default">
+		<div class="panel-heading"><span class="glyphicon glyphicon-notes_2"></span> <strong>Request Details</strong></div>
+		<div class="panel-body">
+			<form class="form-horizontal">
+				<fieldset>
+					<div class="form-group">
+						<label for="requestViewRequestDate" class="col-lg-3 control-label">Submitted</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="requestViewRequestDate" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="requestViewUser" class="col-lg-3 control-label">Name</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="requestViewUser" readonly>
+							<input type="hidden" class="form-control" id="requestViewUserId" readonly>
+							<input type="hidden" class="form-control" id="requestViewRequestId" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="requestViewNumberDays" class="col-lg-3 control-label">#Days</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="requestViewNumberDays" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="requestViewFromDate" class="col-lg-3 control-label">From</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="requestViewFromDate" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="requestViewUntilDate" class="col-lg-3 control-label">Until</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="requestViewUntilDate" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="requestViewReason" class="col-lg-3 control-label">Reason</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="requestViewReason" readonly>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="requestViewNotes" class="col-lg-3 control-label">Notes</label>
+						<div class="col-lg-9">
+							<textarea class="form-control" id="requestViewNotes" rows="3" readonly></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="requestViewStatus" class="col-lg-3 control-label">Status</label>
+						<div class="col-lg-9">
+							<input type="text" class="form-control" id="requestViewStatus" ng-model="requestViewStatus" readonly>
+						</div>
+					</div>
+					<div class="form-group" id="requestViewActionButtons">
+						<div class="col-sm-12">
+							<button class="btn btn-sm btn-danger" ng-click="updateStatus('Declined')">Decline</button>
+							<button class="btn btn-sm btn-success pull-right" ng-click="updateStatus('Approved')">Approve</button>
+						</div>
+						<div class="col-sm-12">
+							<div class="alert alert-sm text-center" style="padding:5px;margin-bottom:0px">
+								<img src="../img/loader/horizontal_loader.gif">
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>
+<!--end sideform-->

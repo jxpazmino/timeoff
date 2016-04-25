@@ -1,0 +1,133 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-10 col-sm-offset-1">
+			<legend><span class="glyphicon glyphicon-pen" aria-hidden="true"></span> Request Time Off</legend>
+			<div class="col-lg-4">
+				<br>
+				<canvas id="doughnut" class="chart chart-doughnut" chart-data="chart.data" chart-labels="chart.labels" chart-legend="true" chart-colours="chart.colors" options="chart.options">
+				</canvas>
+			</div>
+			<div class="col-lg-8" id="requestFormContainer">
+				<div class="form-group">
+					<div class="col-sm-12" ng-if="message">
+						<div class="alert alert-dismissible" ng-class="(message==='Your request was submitted succesfully!') ? 'alert-info' : 'alert-danger'">
+							<button type="button" class="close" data-dismiss="alert" ng-click="closeAlert()" ng-show="requestFormDisplay">&times;</button>
+							<strong>{{message}}</strong>
+						</div>
+						<button type="button" class="btn btn-primary" ng-hide="requestFormDisplay" ng-click="restoreForm()"><span class="glyphicon glyphicon-circle_plus" aria-hidden="true"></span>&nbsp; Submit New Request</button>
+					</div>
+				</div>
+				<form name="requestForm" id="requestForm" ng-show="requestFormDisplay" class="form-horizontal" ng-submit="request()" novalidate>
+					<div class="form-group">
+						<div class="col-sm-6">
+							<label for="reason" class="col-sm-12">Reason (required)</label>
+							<div class="col-sm-4 fixed-300">
+								<select class="form-control" id="requestReason" name="requestReason" ng-model="request.reason" ng-required="true">
+									<option value="" selected disabled>Select one...</option>
+									<option value="Vacation">Vacation</option>
+									<option value="Personal">Personal</option>
+									<option value="Sick">Sick</option>
+								</select>
+							</div>
+							<label for="requestLen" class="col-sm-12">One or multiple days? (required)</label>
+							<div class="col-sm-4 fixed-300">
+								<select class="form-control" id="requestLen" name="requestLen" ng-model="request.len" ng-required="true">
+									<option value="" selected disabled>Select one...</option>
+									<option value="oneDay">One day</option>
+									<option value="multipleDays">Multiple days</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<label for="textArea" class="col-sm-12">Optional Comments</label>
+							<div class="col-sm-4 fixed-300">
+								<textarea class="form-control" rows="4" id="textArea" placeholder="(Any additional info here)" ng-model="request.notes"></textarea>
+							</div>
+						</div>
+					</div>
+					<!--One-->
+					<div class="form-group" ng-if="request.len==='oneDay'">
+						<div class="col-sm-6">
+							<label for="requestOneDate" class="col-sm-12">Date (required)</label>
+							<div class="col-sm-4 fixed-300">
+								<div>
+									<pre><em>&nbsp;{{request.oneDate | date:'EEE, MMMM dd, yyyy'}}</em></pre>
+									<span class="glyphicon glyphicon-remove_2 cal-clear-date-icon font-large" aria-hidden="true" ng-click="clearCalendar('oneDate')"
+									ng-show="request.oneDate"></span>
+								</div>
+								<uib-datepicker ng-model="request.oneDate" min-date="oneDateMinDate" init-date="initDate" max-date="oneDateMaxDate" show-weeks="false"
+								class="well well-sm" custom-class="getDayClass(date, mode)" date-disabled="disabled(date,mode)" name="requestOneDate"
+								id="requestOneDate" year-range="5" ng-required="true"></uib-datepicker>
+							</div>
+						</div>
+					</div>
+					<div class="form-group" ng-if="request.len==='multipleDays'">
+						<!--From-->
+						<div class="col-sm-6">
+							<label for="requestFromDate" class="col-sm-12">From (required)</label>
+							<div class="col-sm-4 fixed-300">
+								<div>
+									<pre><em>&nbsp;{{request.fromDate | date:'EEE, MMMM dd, yyyy'}}</em></pre>
+									<span class="glyphicon glyphicon-remove_2 cal-clear-date-icon font-large" aria-hidden="true" ng-click="clearCalendar('fromDate')"
+									ng-show="request.fromDate"></span>
+								</div>
+								<uib-datepicker ng-model="request.fromDate" min-date="fromDateMinDate" max-date="fromDateMaxDate" init-date="initDate" show-weeks="false"
+								year-range="5" date-disabled="disabled(date,mode)" class="well well-sm" custom-class="getDayClass(date, mode)" name="requestFromDate"
+								id="requestFromDate" ng-required="true"></uib-datepicker>
+							</div>
+						</div>
+						<!--To-->
+						<div class="col-sm-6">
+							<label for="requestToDate" class="col-sm-12">Until (required)</label>
+							<div class="col-sm-4 fixed-300">
+								<div>
+									<pre><em>&nbsp;{{request.toDate | date:'EEE, MMMM dd, yyyy'}}</em></pre>
+									<span class="glyphicon glyphicon-remove_2 cal-clear-date-icon font-large" aria-hidden="true" ng-click="clearCalendar('toDate')" ng-show="request.toDate"></span>
+								</div>
+								<uib-datepicker ng-model="request.toDate" min-date="toDateMinDate" max-date="toDateMaxDate" init-date="initDate" show-weeks="false"
+								year-range="5" date-disabled="disabled(date,mode)" class="well well-sm" custom-class="getDayClass(date, mode)" name="requestToDate"
+								id="requestToDate" ng-required="true"></uib-datepicker>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-12">
+							<div class="col-sm-12">
+								<br>
+								<hr>
+								<div class="col-sm-4 fixed-300">
+									<a ng-href="#/schedule" class="btn btn-default" class="form-control">Cancel</a>
+									<button type="button" class="btn btn-primary" ng-disabled="requestForm.$invalid" data-toggle="modal" data-target="#confirmRequest">Submit</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- start modal -->
+					<div class="modal fade" id="confirmRequest" tabindex="-1" role="dialog" aria-labelledby="confirmRequestModal">
+						<div class="modal-dialog modal-sm" role="document">
+							<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="confirmRequestModal">Confirm</h4>
+							</div>
+							<div class="modal-body">
+								Your request information:<br><br>
+								REASON: {{request.reason}}<br>
+								<span ng-if="request.len==='oneDay'">DATE: {{request.oneDate | date:'EEE, MMMM dd, yyyy'}}<br></span>
+								<span ng-if="request.len==='multipleDays'">FROM: {{request.fromDate | date:'EEE, MMMM dd, yyyy'}}<br></span>
+								<span ng-if="request.len==='multipleDays'">UNTIL: {{request.toDate | date:'EEE, MMMM dd, yyyy'}}<br></span>
+								<br>YOU ARE REQUESTING: {{numberDays}} day(s)</strong><strong ng-if="numberWeeks"> = {{numberWeeks}} business week(s)</strong><br>
+								<h5><strong>Is this information correct?</strong></h5>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">No, go back</button>
+								<button type="submit" class="btn btn-primary" id="requestFormSubmitButton">Yes, submit!</button>
+							</div>
+							</div>
+						</div>
+					</div><!--end Modal-->
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

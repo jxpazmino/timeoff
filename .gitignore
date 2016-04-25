@@ -2,6 +2,7 @@
 node_modules
 .tmp
 .sass-cache
-builds/development/
-!builds/development/index.html
+builds/development/css/
+builds/development/fonts/
+builds/development/js/bundle.js
 builds/production/
